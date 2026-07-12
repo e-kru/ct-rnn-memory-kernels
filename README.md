@@ -4,6 +4,36 @@ Small numerical experiments on recurrent neural networks, time-series forecastin
 
 This repository is motivated by my bachelor thesis on approximation and optimization theory for linear continuous-time recurrent neural networks. The goal is to build intuition for how recurrent models store information, how memory length affects training, and how continuous-time linear RNNs relate to kernel approximation.
 
+## Results
+
+### Copy-first memory task
+
+The experiment shows how increasing sequence length makes it harder for an RNN to retain information.
+
+<p align="center">
+  <img src="outputs/figures/copy_first_memory_test_losses.png" width="800">
+</p>
+
+---
+
+### Time-series forecasting
+
+A simple recurrent neural network is trained for one-step-ahead forecasting and compared with common baselines.
+
+<p align="center">
+  <img src="outputs/figures/rnn_forecasting_predictions_with_baselines.png" width="800">
+</p>
+
+---
+
+### Training loss
+
+Training and test loss during optimization.
+
+<p align="center">
+  <img src="outputs/figures/rnn_forecasting_loss_normalized.png" width="700">
+</p>
+
 ## Project motivation
 
 Recurrent neural networks process sequential data by maintaining a hidden state.
