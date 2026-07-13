@@ -6,6 +6,8 @@ __pycache__/
 .ipynb_checkpoints/
 .DS_Store
 
-outputs/
+outputs/*
+!outputs/figures/
+!outputs/figures/*.png
 data/
 *.pdf
