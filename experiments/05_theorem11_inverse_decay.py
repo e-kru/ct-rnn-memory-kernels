@@ -8,8 +8,8 @@ import numpy as np
 # ---------------------------------------------------------------------
 # Configuration
 # ---------------------------------------------------------------------
-
 BETA = 1.0
+DELTA = 0.5
 T_MAX = 20.0
 N_GRID = 4000
 
@@ -79,18 +79,12 @@ def fixed_gap_rates(
     width: int,
 ) -> np.ndarray:
     """
-    Rates with a fixed stability gap.
+    Rates satisfying the strict stability margin
 
-    All decay rates satisfy
-
-        lambda_j >= BETA.
-
-    Thus every basis function decays at least as fast as
-
-        exp(-BETA * t).
+        lambda_j >= BETA + DELTA.
     """
     return np.geomspace(
-        BETA,
+        BETA + DELTA,
         20.0,
         width,
     )
