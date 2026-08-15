@@ -267,28 +267,35 @@ def main():
     FIGURE_DIR = PROJECT_ROOT / "outputs" / "figures"
     FIGURE_DIR.mkdir(parents=True, exist_ok=True)
 
-    plt.figure(figsize=(8, 5))
+    epochs = range(1, len(result["test_losses"]) + 1)
 
-    for r in results:
-        label = (
-            f"T={r['seq_len']}, "
-            f"H={r['hidden_size']}, "
-            f"lr={r['lr']}"
+    fig, ax = plt.subplots(figsize=(6.4, 4.1))
+
+    for result in results:
+        ax.plot(
+            epochs,
+            result["test_losses"],
+            linewidth=1.8,
+            label=rf"$T={result['seq_len']}$",
         )
 
-        plt.plot(r["test_losses"], label=label)
+    ax.set_yscale("log")
+    ax.set_xlabel("Epoch")
+    ax.set_ylabel("Test MSE")
+    ax.set_xticks(range(1, 21, 2))
+    ax.grid(True, which="major", alpha=0.25)
+    ax.legend()
+    fig.tight_layout()
 
-    plt.yscale("log")
-    plt.xlabel("epoch")
-    plt.ylabel("test loss")
-    plt.title("Copy-first memory task: effect of sequence length")
-    plt.legend()
-    plt.tight_layout()
+    png_path = FIGURE_DIR / "copy_first_memory_test_losses.png"
+    pdf_path = FIGURE_DIR / "copy_first_memory_test_losses.pdf"
 
-    figure_path = FIGURE_DIR / "copy_first_memory_test_losses.png"
-    plt.savefig(figure_path, dpi=200)
+    fig.savefig(png_path, dpi=300, bbox_inches="tight")
+    fig.savefig(pdf_path, bbox_inches="tight")
+    plt.close(fig)
 
-    print(f"\nSaved plot to {figure_path}")
+    print(f"Saved plot to {png_path}")
+    print(f"Saved plot to {pdf_path}")
 
 
 if __name__ == "__main__":
