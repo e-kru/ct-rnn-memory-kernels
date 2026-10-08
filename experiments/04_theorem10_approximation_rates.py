@@ -1371,7 +1371,37 @@ def save_results_table(
                     ]
                 )
 
+def print_analytic_width_four_coefficients() -> None:
+    """
+    Fit and print the coefficients of rho_hat_4 for the
+    analytic target.
+    """
+    width = 4
 
+    rates = theorem10_rates(width)
+
+    basis_train = exponential_basis(
+        t_train,
+        rates,
+    )
+
+    coefficients = fit_coefficients(
+        smooth_target_kernel(t_train),
+        basis_train,
+    )
+
+    print(
+        "\nAnalytic target, m=4:"
+    )
+
+    for index, (coefficient, rate) in enumerate(
+        zip(coefficients, rates, strict=True),
+        start=1,
+    ):
+        print(
+            f"  a_{index} = {coefficient:.16e}, "
+            f"lambda_{index} = {rate:.6f}"
+        )
 # ============================================================
 # Main
 # ============================================================
@@ -1523,3 +1553,4 @@ if __name__ == "__main__":
         TABLE_DIR
         / "theorem10_approximation_results.csv"
     )
+    print_analytic_width_four_coefficients()
