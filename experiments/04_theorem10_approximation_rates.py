@@ -33,7 +33,7 @@ ALPHA = 1
 BETA = 1.0
 DELTA = 0.1
 
-WIDTHS = np.arange(2, 31)
+WIDTHS = np.arange(2, 17)
 
 # The empirical slope is estimated only before the numerical
 # error plateau and severe basis ill-conditioning.

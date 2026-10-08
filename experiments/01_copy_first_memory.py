@@ -62,7 +62,8 @@ class RNNRegressor(nn.Module):
             nonlinearity=nonlinearity,
         )
 
-        self.readout = nn.Linear(hidden_size, output_size)
+        self.readout = nn.Linear(hidden_size, output_size, bias=False,)
+
 
     def forward(self, x):
         _, h_last = self.rnn(x)
