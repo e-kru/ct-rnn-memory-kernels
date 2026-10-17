@@ -34,7 +34,8 @@ spec.loader.exec_module(experiment)
 OMEGA = 1.0 / 10.0
 
 BASE_GRID_SIZE = 2000
-BASE_HORIZON = 14.0
+# Match the standalone Euler experiment so slow model tails are retained.
+BASE_HORIZON = 19.0
 
 LOSS_TOLERANCE = 5e-4
 GRADIENT_TOLERANCE = 5e-4
@@ -81,6 +82,8 @@ def run_short_simulation(
             loss_history,
             gradient_norm_history,
             parameter_distance_history,
+            _minimum_rate_history,
+            _projection_count,
         ) = experiment.gradient_flow(
             t,
             OMEGA,
@@ -303,8 +306,8 @@ def test_euler_step_size_convergence() -> None:
 
 def test_rate_projection_is_inactive() -> None:
     """
-    Final rates should remain safely above the artificial
-    lower bound 1e-3.
+    Final rates should retain a safety margin above the
+    configured projection boundary.
 
     This does not prove that the projection was never active,
     but detects the most obvious projection artefact.
@@ -494,8 +497,9 @@ def test_euler_step_size_for_modified_configurations() -> None:
         },
     ]
 
-    coarse_step = 1e-2
-    coarse_iterations = 20_000
+    # Keep the final training time at 200 while refining the Euler steps.
+    coarse_step = 5e-3
+    coarse_iterations = 40_000
 
     fine_step = coarse_step / 2.0
     fine_iterations = 2 * coarse_iterations
