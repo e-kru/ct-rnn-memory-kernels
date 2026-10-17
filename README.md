@@ -13,7 +13,7 @@ The repository contains three experiments: a discrete time copy-first memory tas
 | Experiment                                                      | Thesis location | Implementation and notebook |
 |-----------------------------------------------------------------| --- | --- |
 | Copy-first memory                                               | Chapter 2, Figure 1 | [Python script](experiments/01_copy_first_memory.py) |
-| Approximation rates for analytic and limited-smoothness kernels | Section 5.3.3, Proposition 5.10, Figures 2–4 | [Python implementation](experiments/04_theorem10_approximation_rates.py), [notebook](notebooks/03_theorem10_approximation_rates.ipynb) |
+| Approximation rates for analytic and limited smoothness kernels | Section 5.3.3, Proposition 5.10, Figures 2–4 | [Python implementation](experiments/04_theorem10_approximation_rates.py), [notebook](notebooks/03_theorem10_approximation_rates.ipynb) |
 | Gradient flow plateaus for delayed kernels                      | Section 6.5, Table 2, Figures 5–7; numerical validation in Appendix 8.2 | [Python implementation](experiments/08_theorem20_exact_gradient_flow.py), [notebook](notebooks/08_theorem20_plateauing.ipynb) |
 
 The notebook filenames follow the theorem numbering in Li et al. [1]: Theorem 10 corresponds to Theorem 5.9 in the thesis, and Theorem 20 to Theorem 6.5. The target choices and numerical results are my own implementations of the settings discussed in the thesis.
@@ -46,7 +46,7 @@ Open either notebook listed above and run its cells in order. Starting Jupyter i
 python experiments/01_copy_first_memory.py
 ```
 
-The task follows the long term dependency setting of Bengio et al. [2]. A one-layer tanh RNN with hidden dimension 16 is implemented in PyTorch [5] and trained using Adam [6] for 20 epochs at sequence lengths 4, 10, 20, and 50. The script sets the PyTorch seed to 0 and uses one training run per length. It saves the test-loss figure as PNG and PDF under `outputs/figures/`. These individual runs are illustrative; they do not provide uncertainty estimates across random seeds.
+The task follows the long term dependency setting of Bengio et al. [2]. A one layer tanh RNN with hidden dimension 16 is implemented in PyTorch [5] and trained using Adam [6] for 20 epochs at sequence lengths 4, 10, 20, and 50. The script sets the PyTorch seed to 0 and uses one training run per length. It saves the test loss figure as PNG and PDF under `outputs/figures/`. These individual runs are illustrative and they do not provide uncertainty estimates across random seeds.
 
 ### Approximation rates
 
@@ -62,7 +62,7 @@ python experiments/04_theorem10_approximation_rates.py
 
 It additionally produces diagnostic plots and a results table under `outputs/`.
 
-### Gradient-flow plateaus
+### Gradient flow plateaus
 
 Run `notebooks/08_theorem20_plateauing.ipynb` to reproduce Table 2, the three thesis figures, and the validation summary. The model width is 10 and the delays are 8, 10, 12, 14, 16, and 18. The loss and gradients are evaluated in closed form on [0, infinity), and the gradient flow is integrated using SciPy's DOP853 solver with event detection [3, 4].
 
@@ -74,7 +74,7 @@ Cache status: loaded from cache; no solver was called
 
 It then reuses the six primary, six refined, and three illustrative trajectories and their stored validation values. If the cache is missing or the experiment source changes, the notebook recomputes these results and replaces the cache. Recalculation can take substantially longer than plotting the stored results. Loading cached validation values does not independently repeat the validation.
 
-The notebook saves PNG and vector PDF versions of the target-kernel, plateau-trajectory, and learned-kernel figures under `figures/`.
+The notebook saves PNG and vector PDF versions of the target-kernel, plateau trajectory, and learned kernel figures under `figures/`.
 
 The standalone implementation can also be run with:
 
@@ -82,13 +82,13 @@ The standalone implementation can also be run with:
 python experiments/08_theorem20_exact_gradient_flow.py
 ```
 
-This performs a fresh computation, including its self-checks, primary/refined solver comparison, and additional diagnostic plots. It does not use the notebook cache.
+This performs a fresh computation, including its self checks, primary/refined solver comparison, and additional diagnostic plots. It does not use the notebook cache.
 
 ## Numerical validation
 
-The closed-form plateau implementation checks its initialization, compares its gradient with centered finite differences, compares its loss with independent quadrature, and compares hitting times from primary and refined solver settings. The derivation and checks are documented in Appendix 8.2 of the thesis. These checks assess numerical consistency and sensitivity to solver settings; they do not verify an asymptotic theorem.
+The closed form plateau implementation checks its initialization, compares its gradient with centered finite differences, compares its loss with independent quadrature, and compares hitting times from primary and refined solver settings. The derivation and checks are documented in Appendix 8.2 of the thesis. These checks assess numerical consistency and sensitivity to solver settings; they do not verify an asymptotic theorem.
 
-The earlier implementation, `experiments/07_theorem20_exponential_plateau.py`, is retained because `tests/test_theorem20_numerics.py` imports it directly. The tests examine quadrature-grid and horizon sensitivity, Euler step-size refinement, final rate bounds, and trapezoidal versus Simpson quadrature. They exercise implementation 07; the notebook uses implementation 08 and its own validation.
+The earlier implementation, `experiments/07_theorem20_exponential_plateau.py`, is retained because `tests/test_theorem20_numerics.py` imports it directly. The tests examine quadrature grid and horizon sensitivity, Euler step size refinement, final rate bounds, and trapezoidal versus Simpson quadrature. They exercise implementation 07; the notebook uses implementation 08 and its own validation.
 
 To run these additional tests, install pytest in the project environment:
 
