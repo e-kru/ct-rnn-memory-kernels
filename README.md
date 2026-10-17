@@ -44,7 +44,7 @@ Open either notebook listed above and run its cells in order. Starting Jupyter i
 python experiments/01_copy_first_memory.py
 ```
 
-A one-layer tanh RNN with hidden dimension 16 is trained for 20 epochs at sequence lengths 4, 10, 20, and 50. The script sets the PyTorch seed to 0 and uses one training run per length. It saves the test-loss figure as PNG and PDF under `outputs/figures/`. These individual runs are illustrative; they do not provide uncertainty estimates across random seeds.
+The task follows the long-term dependency setting of Bengio et al. (1994). A one-layer tanh RNN with hidden dimension 16 is trained for 20 epochs at sequence lengths 4, 10, 20, and 50. The script sets the PyTorch seed to 0 and uses one training run per length. It saves the test-loss figure as PNG and PDF under `outputs/figures/`. These individual runs are illustrative; they do not provide uncertainty estimates across random seeds.
 
 ### Approximation rates
 
@@ -99,6 +99,7 @@ Some tests run shortened Euler simulations, so they take longer than loading the
 
 ## References
 
+- Yoshua Bengio, Patrice Simard, and Paolo Frasconi (1994). *Learning Long-Term Dependencies with Gradient Descent Is Difficult*. IEEE Transactions on Neural Networks, 5(2), 157–166. [doi:10.1109/72.279181](https://doi.org/10.1109/72.279181).
 - Zhong Li, Jiequn Han, Weinan E, and Qianxiao Li (2022). *Approximation and Optimization Theory for Linear Continuous-Time Recurrent Neural Networks*. Journal of Machine Learning Research, 23(42), 1–85. [JMLR record](https://jmlr.org/papers/v23/21-0368.html). Theorems 10 and 20 provide the theoretical settings for the two continuous-time experiments.
 - Pauli Virtanen et al. (2020). *SciPy 1.0: Fundamental Algorithms for Scientific Computing in Python*. Nature Methods, 17, 261–272. [doi:10.1038/s41592-019-0686-2](https://doi.org/10.1038/s41592-019-0686-2).
 - Ernst Hairer, Syvert P. Nørsett, and Gerhard Wanner (1993). *Solving Ordinary Differential Equations I: Nonstiff Problems*, 2nd ed., Section II.5, pp. 181–185. [doi:10.1007/978-3-540-78862-1](https://doi.org/10.1007/978-3-540-78862-1). Reference for DOP853.
